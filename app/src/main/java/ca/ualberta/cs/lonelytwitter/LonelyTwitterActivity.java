@@ -28,8 +28,7 @@ public class LonelyTwitterActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Tweet importantTweet = new ImportantTweet("");
-
-		//importantTweet.isImportant(); Does not work because importantTweet was created as a Tweet, and Tweet has no isImportant Method
+		Tweet normalTweet = new NormalTweet("");
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
