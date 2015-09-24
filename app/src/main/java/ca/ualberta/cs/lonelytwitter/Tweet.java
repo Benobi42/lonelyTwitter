@@ -28,8 +28,13 @@ public abstract class Tweet extends Object implements Tweetable {
         if (text.length() <= 140) {
             this.text = text;
         } else {
-            throw new TweetTooLongException();
+            //throw new TweetTooLongException();
         }
+    }
+
+    @Override
+    public String toString() {
+        return date.toString() + " || " + this.text;
     }
 
     public Date getDate() {
