@@ -4,16 +4,20 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import java.util.ArrayList;
 
-/**
- * Created by bschreib on 9/30/15.
- */
-public class TweetListTest extends ActivityInstrumentationTestCase2 {
+
+public class TweetListTest extends ActivityInstrumentationTestCase2 implements MyObserver{
 
     public TweetListTest(){
         super(LonelyTwitterActivity.class);
     }
 
-    //public something myHelperForTesting()
+    private ArrayList<MyObservable> observables = new ArrayList<MyObservable>();
+
+    private boolean wasNotified = false;
+
+    public void myNotify(){
+        wasNotified = true;
+    }
 
     /*
     Test Cases Written During Lab
@@ -102,5 +106,15 @@ public class TweetListTest extends ActivityInstrumentationTestCase2 {
         assertTrue(tweetList.getCount() == (2));
         tweetList.removeTweet(tweet1);
         assertTrue(tweetList.getCount() == (1));
+    }
+
+    public void testTweetChanged(){
+        TweetList tweetList = new TweetList();
+        Tweet tweet = new NormalTweet("This is a Tweet");
+        tweetList.addObserver(this);
+        wasNotified = false;
+        assertFalse(wasNotified);
+        tweetList.addTweet(tweet);
+        assertTrue(wasNotified);
     }
 }

@@ -2,18 +2,16 @@ package ca.ualberta.cs.lonelytwitter;
 
 import java.util.ArrayList;
 
-/**
- * Created by bschreib on 9/30/15.
- */
-public class TweetList {
+public class TweetList implements MyObservable{
     private ArrayList<Tweet> tweets = new ArrayList<Tweet>();
-
+    private ArrayList<MyObserver> observers = new ArrayList<MyObserver>();
 
     public void addTweet(Tweet tweet){
         if (tweets.contains(tweet)){
             throw new IllegalArgumentException("Tweet Already Exists");
         }
         tweets.add(tweet);
+        notifyObservers();
     }
 
     public void removeTweet(Tweet tweet){
@@ -25,13 +23,21 @@ public class TweetList {
     }
 
     public ArrayList<Tweet> getTweets(){
-        ArrayList<Tweet> tweetsCopy = tweets;
-        return tweetsCopy;
+        return tweets;
     }
 
     public int getCount(){
-        int count = tweets.size();
-        return count;
+        return tweets.size();
+    }
+
+    public void notifyObservers(){
+        for (MyObserver i: observers){
+            i.myNotify();
+        }
+    }
+
+   public void addObserver(MyObserver o){
+        observers.add(o);
     }
 
 
