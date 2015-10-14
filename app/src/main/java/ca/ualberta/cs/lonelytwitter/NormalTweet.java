@@ -2,17 +2,7 @@ package ca.ualberta.cs.lonelytwitter;
 
 import java.util.Date;
 
-/**
-<<<<<<< HEAD
- * Created by bschreib on 9/16/15.
- */
 public class NormalTweet extends Tweet {
-
-=======
- * Created by joshua2 on 9/16/15.
- */
-public class NormalTweet extends Tweet {
->>>>>>> f15IOlab
     public NormalTweet(String tweet, Date date) {
         super(tweet, date);
     }
