@@ -1,5 +1,7 @@
 package ca.ualberta.cs.lonelytwitter;
 
+import java.util.Date;
+
 <<<<<<< HEAD
 import android.text.BoringLayout;
 

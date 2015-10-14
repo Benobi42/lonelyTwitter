@@ -100,4 +100,8 @@ public class LonelyTwitterActivity extends Activity {
 			throw new RuntimeException(e);												//Model
 		}
 	}
+
+	public ArrayList<Tweet> getTweets() {
+		return tweets;
+	}
 }
