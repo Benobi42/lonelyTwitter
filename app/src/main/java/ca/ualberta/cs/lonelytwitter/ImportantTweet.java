@@ -9,12 +9,6 @@ public class ImportantTweet extends Tweet{
     //Method names use camelcase, but the first letter is lower case
 
     public ImportantTweet(String tweet, Date date) {
-        //super initializes an instance of the parent class
-        //cannot access private data within the parent class
-        super(tweet, date);
-
-public class ImportantTweet extends Tweet {
-    public ImportantTweet(String tweet, Date date) {
         super(tweet, date);
         this.setText(tweet);
         this.date = date;
@@ -32,4 +26,5 @@ public class ImportantTweet extends Tweet {
     public String getText() {
         return "!!!" + super.getText();
     }
+
 }

@@ -13,6 +13,11 @@ import junit.framework.TestCase;
  */
 public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 {
 
+    private String testString;
+    private Button saveButton;
+    private ListView oldTweetsList;
+    private EditText bodyText;
+
     public LonelyTwitterActivityTest() {
         super(ca.ualberta.cs.lonelytwitter.LonelyTwitterActivity.class);
     }
@@ -25,16 +30,20 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 
     public void testEditTweet(){
         LonelyTwitterActivity activity = (LonelyTwitterActivity) getActivity();
         activity.getTweets().clear();
+        saveButton = activity.getSaveButton();
+        oldTweetsList = activity.getOldTweetsList();
+        bodyText = activity.getBodyText();
+        testString = "test tweet";
+        activity.runOnUiThread(new Runnable() {
+            public void run() {
+                bodyText.setText(testString);
+                saveButton.performClick();
+                Tweet tweet = (Tweet) oldTweetsList.getItemAtPosition(0);
+                assertEquals(tweet.getText(), testString);
+            }
+        });
 
-        EditText bodyText = activity.getBodyText();
-        String testString = "test tweet";
-        bodyText.setText(testString);
 
-        Button saveButton = activity.getSaveButton();
-        saveButton.performClick();
 
-        ListView oldTweetsList = activity.getOldTweetsList();
-        Tweet tweet = (Tweet) oldTweetsList.getItemAtPosition(0);
-        assertEquals(tweet.getText(), testString);
     }
 }

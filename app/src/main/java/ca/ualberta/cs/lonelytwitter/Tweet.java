@@ -37,4 +37,11 @@ public abstract class Tweet extends Object implements Tweetable {
         return date.toString() + " || " + this.text;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }
