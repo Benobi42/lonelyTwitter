@@ -31,6 +31,8 @@ public class LonelyTwitterActivity extends Activity {
 	private ListView oldTweetsList;														//Controller
 	private ArrayList<Tweet> tweets = new ArrayList<Tweet>();								//Model
 	private ArrayAdapter<Tweet> adapter;												//Controller
+	private Button saveButton;
+	private Button clearButton;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -40,23 +42,23 @@ public class LonelyTwitterActivity extends Activity {
 
 		bodyText = (EditText) findViewById(R.id.body);									//View
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);					//View
-		Button saveButton = (Button) findViewById(R.id.save);							//View
-		saveButton.setOnClickListener(new View.OnClickListener() {						//Controller
-			public void onClick(View v) {												//Controller
-				setResult(RESULT_OK);													//Controller
-				String text = bodyText.getText().toString();							//Controller
-				tweets.add(new NormalTweet(text));										//Model
-				saveInFile();															//Model
-				adapter.notifyDataSetChanged();											//Controller
+		saveButton = (Button) findViewById(R.id.save);									//View
+		saveButton.setOnClickListener(new View.OnClickListener() {                      //Controller
+			public void onClick(View v) {                                                //Controller
+				setResult(RESULT_OK);                                                    //Controller
+				String text = bodyText.getText().toString();                            //Controller
+				tweets.add(new NormalTweet(text));                                        //Model
+				saveInFile();                                                            //Model
+				adapter.notifyDataSetChanged();                                            //Controller
 			}
 		});
-		Button clearButton = (Button) findViewById(R.id.clear); 						//View
-		clearButton.setOnClickListener(new View.OnClickListener(){						//Controller
-			public void onClick(View v){												//Controller
-				setResult(RESULT_OK);                                					//Controller
-				tweets.clear();															//Model
-				saveInFile();															//Model
-				adapter.notifyDataSetChanged();											//Controller
+		clearButton = (Button) findViewById(R.id.clear); 									//View
+		clearButton.setOnClickListener(new View.OnClickListener() {                        //Controller
+			public void onClick(View v) {                                                //Controller
+				setResult(RESULT_OK);                                                    //Controller
+				tweets.clear();                                                            //Model
+				saveInFile();                                                            //Model
+				adapter.notifyDataSetChanged();                                            //Controller
 			}
 		});
 	}
@@ -99,5 +101,25 @@ public class LonelyTwitterActivity extends Activity {
 		} catch (IOException e) {														//Model
 			throw new RuntimeException(e);												//Model
 		}
+	}
+
+	public ArrayList<Tweet> getTweets() {
+		return tweets;
+	}
+
+	public EditText getBodyText() {
+		return bodyText;
+	}
+
+	public Button getSaveButton() {
+		return saveButton;
+	}
+
+	public Button getClearButton() {
+		return clearButton;
+	}
+
+	public ListView getOldTweetsList() {
+		return oldTweetsList;
 	}
 }
