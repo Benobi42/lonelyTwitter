@@ -7,6 +7,8 @@ import android.view.MenuItem;
 
 public class EditTweetActivity extends Activity {
 
+    private Tweet myTweet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,5 +35,9 @@ public class EditTweetActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public Tweet getTweet() {
+        return myTweet;
     }
 }
