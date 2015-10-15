@@ -1,7 +1,10 @@
 package ca.ualberta.cs.lonelytwitter;
 
 import android.app.Activity;
+import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -28,7 +31,7 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 
     }
 
     public void testEditTweet(){
-        LonelyTwitterActivity activity = (LonelyTwitterActivity) getActivity();
+        final LonelyTwitterActivity activity = (LonelyTwitterActivity) getActivity();
         activity.getTweets().clear();
         saveButton = activity.getSaveButton();
         oldTweetsList = activity.getOldTweetsList();
@@ -42,8 +45,33 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2 
                 assertEquals(tweet.getText(), testString);
             }
         });
+        getInstrumentation().waitForIdleSync();
+        //Click on Tweet to edit
+        activity.runOnUiThread(new Runnable() {
+            public void run() {
+                AdapterView v = (AdapterView) oldTweetsList.getChildAt(0);
+                oldTweetsList.performItemClick(v, 0, v.getId());
+            }
+        });
+        getInstrumentation().waitForIdleSync();
 
+        //Ensure that the TweetEditor Activity Starts up
+        //Code taken from https://developer.android.com/training/activity-testing/activity-functional-testing.html
+        // Set up an ActivityMonitor
+        Instrumentation.ActivityMonitor editTweetActivityMonitor =
+                getInstrumentation().addMonitor(EditTweetActivity.class.getName(),
+                        null, false);
 
+        // Validate that ReceiverActivity is started
+        EditTweetActivity editTweetActivity = (EditTweetActivity)
+                editTweetActivityMonitor.waitForActivityWithTimeout(1000);
+        assertNotNull("ReceiverActivity is null", editTweetActivity);
+        assertEquals("Monitor for ReceiverActivity has not been called",
+                1, editTweetActivityMonitor.getHits());
+        assertEquals("Activity is of wrong type",
+                EditTweetActivity.class, editTweetActivity.getClass());
 
+        // Remove the ActivityMonitor
+        getInstrumentation().removeMonitor(editTweetActivityMonitor);
     }
 }

@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,6 +60,12 @@ public class LonelyTwitterActivity extends Activity {
 				tweets.clear();                                                            //Model
 				saveInFile();                                                            //Model
 				adapter.notifyDataSetChanged();                                            //Controller
+			}
+		});
+
+		oldTweetsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
 			}
 		});
 	}
